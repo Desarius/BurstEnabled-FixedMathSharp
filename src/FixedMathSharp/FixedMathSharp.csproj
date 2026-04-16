@@ -70,9 +70,6 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <!-- Dependencies and Package References -->
-  <ItemGroup>
-    <PackageReference Include="MemoryPack" Version="1.21.4" />
-  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="System.Text.Json" Version="10.0.5" />
   </ItemGroup>

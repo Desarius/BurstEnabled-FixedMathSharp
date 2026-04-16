@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -20,7 +19,6 @@ namespace FixedMathSharp;
 /// - Useful in animation, physics engines, and 3D rendering for full transformation control.
 /// </remarks>
 [Serializable]
-[MemoryPackable]
 public partial struct Fixed4x4 : IEquatable<Fixed4x4>
 {
     #region Static Readonly Fields
@@ -48,55 +46,39 @@ public partial struct Fixed4x4 : IEquatable<Fixed4x4>
     #region Fields and Constants
 
     [JsonInclude]
-    [MemoryPackOrder(0)]
     public Fixed64 m00;
     [JsonInclude]
-    [MemoryPackOrder(1)]
     public Fixed64 m01;
     [JsonInclude]
-    [MemoryPackOrder(2)]
     public Fixed64 m02;
     [JsonInclude]
-    [MemoryPackOrder(3)]
     public Fixed64 m03;
 
     [JsonInclude]
-    [MemoryPackOrder(4)]
     public Fixed64 m10;
     [JsonInclude]
-    [MemoryPackOrder(5)]
     public Fixed64 m11;
     [JsonInclude]
-    [MemoryPackOrder(6)]
     public Fixed64 m12;
     [JsonInclude]
-    [MemoryPackOrder(7)]
     public Fixed64 m13;
 
     [JsonInclude]
-    [MemoryPackOrder(8)]
     public Fixed64 m20;
     [JsonInclude]
-    [MemoryPackOrder(9)]
     public Fixed64 m21;
     [JsonInclude]
-    [MemoryPackOrder(10)]
     public Fixed64 m22;
     [JsonInclude]
-    [MemoryPackOrder(11)]
     public Fixed64 m23;
 
     [JsonInclude]
-    [MemoryPackOrder(12)]
     public Fixed64 m30;
     [JsonInclude]
-    [MemoryPackOrder(13)]
     public Fixed64 m31;
     [JsonInclude]
-    [MemoryPackOrder(14)]
     public Fixed64 m32;
     [JsonInclude]
-    [MemoryPackOrder(15)]
     public Fixed64 m33;
 
     #endregion
@@ -124,30 +106,24 @@ public partial struct Fixed4x4 : IEquatable<Fixed4x4>
     #region Properties
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public readonly bool IsAffine => (m33 == Fixed64.One) && (m03 == Fixed64.Zero && m13 == Fixed64.Zero && m23 == Fixed64.Zero);
 
     /// <inheritdoc cref="ExtractTranslation(Fixed4x4)" />
     [JsonIgnore]
-    [MemoryPackIgnore]
     public readonly Vector3d Translation => ExtractTranslation(this);
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public readonly Vector3d Up => ExtractUp(this);
 
     /// <inheritdoc cref="ExtractScale(Fixed4x4)" />
     [JsonIgnore]
-    [MemoryPackIgnore]
     public readonly Vector3d Scale => ExtractScale(this);
 
     /// <inheritdoc cref="ExtractRotation(Fixed4x4)" />
     [JsonIgnore]
-    [MemoryPackIgnore]
     public readonly FixedQuaternion Rotation => ExtractRotation(this);
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 this[int index]
     {
         get

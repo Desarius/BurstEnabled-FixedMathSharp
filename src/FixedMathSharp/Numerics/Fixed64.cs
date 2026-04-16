@@ -1,5 +1,4 @@
-﻿using MemoryPack;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -14,7 +13,6 @@ namespace FixedMathSharp;
 /// The precision is determined by SHIFT_AMOUNT, which defines the resolution of fractional values.
 /// </summary>
 [Serializable]
-[MemoryPackable]
 public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqualityComparer<Fixed64>
 {
     #region Static Readonly Fields
@@ -45,7 +43,6 @@ public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqua
     /// The underlying raw long value representing the fixed-point number.
     /// </summary>
     [JsonInclude]
-    [MemoryPackInclude]
     public long m_rawValue;
 
     #endregion

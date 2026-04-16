@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -28,7 +27,6 @@ public enum FixedCurveMode
 /// Used for animations, physics calculations, and procedural data.
 /// </summary>
 [Serializable]
-[MemoryPackable]
 public partial class FixedCurve : IEquatable<FixedCurve>
 {
     #region Constructors
@@ -46,7 +44,6 @@ public partial class FixedCurve : IEquatable<FixedCurve>
     /// <param name="mode">The interpolation method to use.</param>
     /// <param name="keyframes">The keyframes defining the curve.</param>
     [JsonConstructor]
-    [MemoryPackConstructor]
     public FixedCurve(FixedCurveMode mode, params FixedCurveKey[] keyframes)
     {
         Keyframes = keyframes?.Length > 1
@@ -60,11 +57,9 @@ public partial class FixedCurve : IEquatable<FixedCurve>
     #region Properties 
 
     [JsonInclude]
-    [MemoryPackOrder(0)]
     public FixedCurveMode Mode { get; private set; }
 
     [JsonInclude]
-    [MemoryPackOrder(1)]
     public FixedCurveKey[] Keyframes { get; private set; }
 
     #endregion

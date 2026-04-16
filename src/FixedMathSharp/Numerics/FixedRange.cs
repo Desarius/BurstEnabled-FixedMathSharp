@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -9,7 +8,6 @@ namespace FixedMathSharp;
 /// Represents a range of values with fixed precision.
 /// </summary>
 [Serializable]
-[MemoryPackable]
 public partial struct FixedRange : IEquatable<FixedRange>
 {
     #region Static Readonly Fields
@@ -32,14 +30,12 @@ public partial struct FixedRange : IEquatable<FixedRange>
     /// Gets the minimum value of the range.
     /// </summary>
     [JsonInclude]
-    [MemoryPackOrder(0)]
     public Fixed64 Min;
 
     /// <summary>
     /// Gets the maximum value of the range.
     /// </summary>
     [JsonInclude]
-    [MemoryPackOrder(1)]
     public Fixed64 Max;
 
     #endregion
@@ -74,7 +70,6 @@ public partial struct FixedRange : IEquatable<FixedRange>
     /// The length of the range, computed as Max - Min.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 Length
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -85,7 +80,6 @@ public partial struct FixedRange : IEquatable<FixedRange>
     /// The midpoint of the range.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 MidPoint
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

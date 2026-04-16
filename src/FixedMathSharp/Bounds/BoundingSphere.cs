@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -18,7 +17,6 @@ namespace FixedMathSharp
     /// - Suitable for encapsulating objects with roughly spherical shapes or objects that rotate frequently, where the bounding box may need constant updates.
     /// </remarks>
     [Serializable]
-    [MemoryPackable]
     public partial struct BoundingSphere : IBound, IEquatable<BoundingSphere>
     {
         #region Fields
@@ -27,14 +25,12 @@ namespace FixedMathSharp
         /// The center point of the sphere.
         /// </summary>
         [JsonInclude]
-        [MemoryPackOrder(0)]
         public Vector3d Center;
 
         /// <summary>
         /// The radius of the sphere.
         /// </summary>
         [JsonInclude]
-        [MemoryPackOrder(1)]
         public Fixed64 Radius;
 
         #endregion
@@ -56,7 +52,6 @@ namespace FixedMathSharp
         #region Properties
 
         [JsonIgnore]
-        [MemoryPackIgnore]
         public Vector3d Min
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -64,7 +59,6 @@ namespace FixedMathSharp
         }
 
         [JsonIgnore]
-        [MemoryPackIgnore]
         public Vector3d Max
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -75,7 +69,6 @@ namespace FixedMathSharp
         /// The squared radius of the sphere.
         /// </summary>
         [JsonIgnore]
-        [MemoryPackIgnore]
         public Fixed64 SqrRadius
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

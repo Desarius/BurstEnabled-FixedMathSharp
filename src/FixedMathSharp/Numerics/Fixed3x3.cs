@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -20,7 +19,6 @@ namespace FixedMathSharp;
 /// - Useful when optimizing transformations, as it omits the overhead of translation and perspective.
 /// </remarks>
 [Serializable]
-[MemoryPackable]
 public partial struct Fixed3x3 : IEquatable<Fixed3x3>
 {
     #region Static Readonly
@@ -40,33 +38,24 @@ public partial struct Fixed3x3 : IEquatable<Fixed3x3>
     #region Fields
 
     [JsonInclude]
-    [MemoryPackOrder(0)]
     public Fixed64 m00;
     [JsonInclude]
-    [MemoryPackOrder(1)]
     public Fixed64 m01;
     [JsonInclude]
-    [MemoryPackOrder(2)]
     public Fixed64 m02;
 
     [JsonInclude]
-    [MemoryPackOrder(3)]
     public Fixed64 m10;
     [JsonInclude]
-    [MemoryPackOrder(4)]
     public Fixed64 m11;
     [JsonInclude]
-    [MemoryPackOrder(5)]
     public Fixed64 m12;
 
     [JsonInclude]
-    [MemoryPackOrder(6)]
     public Fixed64 m20;
     [JsonInclude]
-    [MemoryPackOrder(7)]
     public Fixed64 m21;
     [JsonInclude]
-    [MemoryPackOrder(8)]
     public Fixed64 m22;
 
     #endregion
@@ -101,7 +90,6 @@ public partial struct Fixed3x3 : IEquatable<Fixed3x3>
     #region Properties
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 this[int index]
     {
         get

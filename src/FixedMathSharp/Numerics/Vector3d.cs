@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -20,7 +19,6 @@ namespace FixedMathSharp;
 /// - Essential for fixed-point math scenarios where floating-point precision isn't suitable.
 /// </remarks>
 [Serializable]
-[MemoryPackable]
 public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IEqualityComparer<Vector3d>
 {
     #region Static Readonly Fields
@@ -80,21 +78,18 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// The X component of the vector.
     /// </summary>
     [JsonInclude]
-    [MemoryPackOrder(0)]
     public Fixed64 x;
 
     /// <summary>
     /// The Y component of the vector.
     /// </summary>
     [JsonInclude]
-    [MemoryPackOrder(1)]
     public Fixed64 y;
 
     /// <summary>
     /// The Z component of the vector.
     /// </summary>
     [JsonInclude]
-    [MemoryPackOrder(2)]
     public Fixed64 z;
 
     #endregion
@@ -126,7 +121,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// If your right hand's thumb points in the positive Y direction, then your fingers curl in the positive direction of rotation.
     /// </remarks>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Vector3d RightHandNormal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -137,7 +131,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// Provides a rotated version of the current vector, where rotation is a 90 degrees rotation around the Y axis in the clockwise direction.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Vector3d LeftHandNormal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -146,7 +139,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
 
     /// <inheritdoc cref="GetNormalized(Vector3d)"/>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Vector3d Normal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -157,7 +149,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// Returns the actual length of this vector (RO).
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 Magnitude
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -172,7 +163,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// where 'x' represents the yaw (horizontal rotation) and 'y' represents the pitch (vertical rotation).
     /// </remarks>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Vector3d Direction
     {
         get
@@ -189,7 +179,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// </summary>
     /// <returns></returns>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public bool IsZero
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -203,7 +192,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// </summary>
     /// <returns>The magnitude.</returns>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 SqrMagnitude
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -214,7 +202,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// Returns a long hash of the vector based on its x, y, and z values.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public long LongStateHash
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -225,7 +212,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     /// Returns a hash of the vector based on its state.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public int StateHash
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -233,7 +219,6 @@ public partial struct Vector3d : IEquatable<Vector3d>, IComparable<Vector3d>, IE
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 this[int index]
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

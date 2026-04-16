@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -10,7 +9,6 @@ namespace FixedMathSharp;
 /// Quaternions are useful for representing rotations and can be used to perform smooth rotations and avoid gimbal lock.
 /// </summary>
 [Serializable]
-[MemoryPackable]
 public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
 {
     #region Static Readonly Fields
@@ -30,19 +28,15 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     #region Fields and Constants
 
     [JsonInclude]
-    [MemoryPackOrder(0)]
     public Fixed64 x;
 
     [JsonInclude]
-    [MemoryPackOrder(1)]
     public Fixed64 y;
 
     [JsonInclude]
-    [MemoryPackOrder(2)]
     public Fixed64 z;
 
     [JsonInclude]
-    [MemoryPackOrder(3)]
     public Fixed64 w;
 
     #endregion
@@ -68,7 +62,6 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     /// Normalized version of this quaternion.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public FixedQuaternion Normal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -79,7 +72,6 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     /// Returns the Euler angles (in degrees) of this quaternion.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Vector3d EulerAngles
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -89,7 +81,6 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 this[int index]
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

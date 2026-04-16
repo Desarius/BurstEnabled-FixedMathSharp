@@ -1,4 +1,3 @@
-﻿using MemoryPack;
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -19,7 +18,6 @@ namespace FixedMathSharp;
 /// </remarks>
 
 [Serializable]
-[MemoryPackable]
 public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
 {
     #region Fields
@@ -28,14 +26,12 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     /// One of the corner points of the bounding area.
     /// </summary>
     [JsonInclude]
-    [MemoryPackOrder(0)]
     public Vector3d Corner1;
 
     /// <summary>
     /// The opposite corner point of the bounding area.
     /// </summary>
     [JsonInclude]
-    [MemoryPackOrder(1)]
     public Vector3d Corner2;
 
     #endregion
@@ -71,7 +67,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     /// The minimum corner of the bounding box.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Vector3d Min
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -82,7 +77,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     /// The maximum corner of the bounding box.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Vector3d Max
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -90,7 +84,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 MinX
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -98,7 +91,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 MaxX
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -106,7 +98,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 MinY
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -114,7 +105,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 MaxY
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -122,7 +112,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 MinZ
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -130,7 +119,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     }
 
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 MaxZ
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -141,7 +129,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     /// Calculates the width (X-axis) of the bounding area.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 Width
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -152,7 +139,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     /// Calculates the height (Y-axis) of the bounding area.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 Height
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -163,7 +149,6 @@ public partial struct BoundingArea : IBound, IEquatable<BoundingArea>
     /// Calculates the depth (Z-axis) of the bounding area.
     /// </summary>
     [JsonIgnore]
-    [MemoryPackIgnore]
     public Fixed64 Depth
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
