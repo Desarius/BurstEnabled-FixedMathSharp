@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -21,6 +24,9 @@ namespace FixedMathSharp;
 /// - Useful for fixed-point math scenarios where floating-point precision is insufficient or not desired.
 /// </remarks>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IEqualityComparer<Vector2d>
 {
     #region Static Readonly Fields
@@ -73,12 +79,18 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// The X component of the vector.
     /// </summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(0)]
+#endif
     public Fixed64 x;
 
     /// <summary>
     /// The Y component of the vector.
     /// </summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(1)]
+#endif
     public Fixed64 y;
 
     #endregion
@@ -104,6 +116,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Rotates the vector to the right (90 degrees clockwise).
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector2d RotatedRight
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -114,6 +129,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Rotates the vector to the left (90 degrees counterclockwise).
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector2d RotatedLeft
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -124,6 +142,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Gets the right-hand (counter-clockwise) normal vector.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector2d RightHandNormal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -134,6 +155,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Gets the left-hand (clockwise) normal vector.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector2d LeftHandNormal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -142,6 +166,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
 
     /// <inheritdoc cref="GetNormalized(Vector2d)"/>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector2d Normal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -152,6 +179,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Returns the actual length of this vector (RO).
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 Magnitude
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -162,6 +192,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Returns the square magnitude of the vector (avoids calculating the square root).
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 SqrMagnitude
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -172,6 +205,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Returns a long hash of the vector based on its x and y values.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public long LongStateHash
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -182,6 +218,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     /// Returns a hash of the vector based on its state.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public int StateHash
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -189,6 +228,9 @@ public partial struct Vector2d : IEquatable<Vector2d>, IComparable<Vector2d>, IE
     }
 
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 this[int index]
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

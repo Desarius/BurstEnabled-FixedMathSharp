@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -19,6 +22,9 @@ namespace FixedMathSharp;
 /// - Useful when optimizing transformations, as it omits the overhead of translation and perspective.
 /// </remarks>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct Fixed3x3 : IEquatable<Fixed3x3>
 {
     #region Static Readonly
@@ -38,24 +44,51 @@ public partial struct Fixed3x3 : IEquatable<Fixed3x3>
     #region Fields
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(0)]
+#endif
     public Fixed64 m00;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(1)]
+#endif
     public Fixed64 m01;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(2)]
+#endif
     public Fixed64 m02;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(3)]
+#endif
     public Fixed64 m10;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(4)]
+#endif
     public Fixed64 m11;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(5)]
+#endif
     public Fixed64 m12;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(6)]
+#endif
     public Fixed64 m20;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(7)]
+#endif
     public Fixed64 m21;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(8)]
+#endif
     public Fixed64 m22;
 
     #endregion
@@ -90,6 +123,9 @@ public partial struct Fixed3x3 : IEquatable<Fixed3x3>
     #region Properties
 
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 this[int index]
     {
         get

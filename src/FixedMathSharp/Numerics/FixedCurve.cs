@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -27,6 +30,9 @@ public enum FixedCurveMode
 /// Used for animations, physics calculations, and procedural data.
 /// </summary>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial class FixedCurve : IEquatable<FixedCurve>
 {
     #region Constructors
@@ -44,6 +50,9 @@ public partial class FixedCurve : IEquatable<FixedCurve>
     /// <param name="mode">The interpolation method to use.</param>
     /// <param name="keyframes">The keyframes defining the curve.</param>
     [JsonConstructor]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackConstructor]
+#endif
     public FixedCurve(FixedCurveMode mode, params FixedCurveKey[] keyframes)
     {
         Keyframes = keyframes?.Length > 1
@@ -57,9 +66,15 @@ public partial class FixedCurve : IEquatable<FixedCurve>
     #region Properties 
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(0)]
+#endif
     public FixedCurveMode Mode { get; private set; }
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(1)]
+#endif
     public FixedCurveKey[] Keyframes { get; private set; }
 
     #endregion

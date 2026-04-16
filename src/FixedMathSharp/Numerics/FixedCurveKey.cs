@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Text.Json.Serialization;
 
@@ -7,24 +10,39 @@ namespace FixedMathSharp;
 /// Represents a keyframe in a <see cref="FixedCurve"/>, defining a value at a specific time.
 /// </summary>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct FixedCurveKey : IEquatable<FixedCurveKey>
 {
     #region Fields
 
     /// <summary>The time at which this keyframe occurs.</summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(0)]
+#endif
     public Fixed64 Time;
 
     /// <summary>The value of the curve at this keyframe.</summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(1)]
+#endif
     public Fixed64 Value;
 
     /// <summary>The incoming tangent for cubic interpolation.</summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(2)]
+#endif
     public Fixed64 InTangent;
 
     /// <summary>The outgoing tangent for cubic interpolation.</summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(3)]
+#endif
     public Fixed64 OutTangent;
 
     #endregion

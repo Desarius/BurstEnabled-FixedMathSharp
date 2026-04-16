@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -19,6 +22,9 @@ namespace FixedMathSharp;
 /// - Useful in animation, physics engines, and 3D rendering for full transformation control.
 /// </remarks>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct Fixed4x4 : IEquatable<Fixed4x4>
 {
     #region Static Readonly Fields
@@ -46,39 +52,87 @@ public partial struct Fixed4x4 : IEquatable<Fixed4x4>
     #region Fields and Constants
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(0)]
+#endif
     public Fixed64 m00;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(1)]
+#endif
     public Fixed64 m01;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(2)]
+#endif
     public Fixed64 m02;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(3)]
+#endif
     public Fixed64 m03;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(4)]
+#endif
     public Fixed64 m10;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(5)]
+#endif
     public Fixed64 m11;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(6)]
+#endif
     public Fixed64 m12;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(7)]
+#endif
     public Fixed64 m13;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(8)]
+#endif
     public Fixed64 m20;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(9)]
+#endif
     public Fixed64 m21;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(10)]
+#endif
     public Fixed64 m22;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(11)]
+#endif
     public Fixed64 m23;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(12)]
+#endif
     public Fixed64 m30;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(13)]
+#endif
     public Fixed64 m31;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(14)]
+#endif
     public Fixed64 m32;
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(15)]
+#endif
     public Fixed64 m33;
 
     #endregion
@@ -106,24 +160,42 @@ public partial struct Fixed4x4 : IEquatable<Fixed4x4>
     #region Properties
 
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public readonly bool IsAffine => (m33 == Fixed64.One) && (m03 == Fixed64.Zero && m13 == Fixed64.Zero && m23 == Fixed64.Zero);
 
     /// <inheritdoc cref="ExtractTranslation(Fixed4x4)" />
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public readonly Vector3d Translation => ExtractTranslation(this);
 
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public readonly Vector3d Up => ExtractUp(this);
 
     /// <inheritdoc cref="ExtractScale(Fixed4x4)" />
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public readonly Vector3d Scale => ExtractScale(this);
 
     /// <inheritdoc cref="ExtractRotation(Fixed4x4)" />
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public readonly FixedQuaternion Rotation => ExtractRotation(this);
 
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 this[int index]
     {
         get

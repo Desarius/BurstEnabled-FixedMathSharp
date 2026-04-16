@@ -1,4 +1,7 @@
-﻿using System;
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -13,6 +16,9 @@ namespace FixedMathSharp;
 /// The precision is determined by SHIFT_AMOUNT, which defines the resolution of fractional values.
 /// </summary>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqualityComparer<Fixed64>
 {
     #region Static Readonly Fields
@@ -43,6 +49,9 @@ public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqua
     /// The underlying raw long value representing the fixed-point number.
     /// </summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackInclude]
+#endif
     public long m_rawValue;
 
     #endregion
@@ -331,8 +340,13 @@ public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqua
         // If rounding overflowed the shifted magnitude, carry it into saturation handling.
         if (!negative)
         {
+            // NOTE: Use the const FixedMath.MAX_VALUE_L / MIN_VALUE_L instead of the
+            // Fixed64.MAX_VALUE / MIN_VALUE static readonly fields. This avoids a
+            // Fixed64-operator -> Fixed64-static chain that Unity Burst AOT flags as a
+            // circular static constructor (BC1090) when operators are used during cctor
+            // (e.g., Fixed64.Two = One * 2).
             if (roundedOverflow || magnitude > long.MaxValue)
-                return MAX_VALUE;
+                return new Fixed64(FixedMath.MAX_VALUE_L);
 
             return new Fixed64((long)magnitude);
         }
@@ -342,10 +356,10 @@ public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqua
             const ulong minValueMagnitude = 0x8000000000000000UL;
 
             if (roundedOverflow || magnitude > minValueMagnitude)
-                return MIN_VALUE;
+                return new Fixed64(FixedMath.MIN_VALUE_L);
 
             if (magnitude == minValueMagnitude)
-                return MIN_VALUE;
+                return new Fixed64(FixedMath.MIN_VALUE_L);
 
             return new Fixed64(-(long)magnitude);
         }
@@ -487,9 +501,12 @@ public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqua
             remainder %= divider;
             quotient += div << bitPos;
 
-            // Detect overflow
+            // Detect overflow — see note in operator *(Fixed64, Fixed64) above about
+            // using the const instead of the static readonly field (BC1090 avoidance).
             if ((div & ~(0xFFFFFFFFFFFFFFFF >> bitPos)) != 0)
-                return ((xl ^ yl) & FixedMath.MIN_VALUE_L) == 0 ? MAX_VALUE : MIN_VALUE;
+                return ((xl ^ yl) & FixedMath.MIN_VALUE_L) == 0
+                    ? new Fixed64(FixedMath.MAX_VALUE_L)
+                    : new Fixed64(FixedMath.MIN_VALUE_L);
 
             remainder <<= 1;
             --bitPos;
@@ -541,7 +558,7 @@ public partial struct Fixed64 : IEquatable<Fixed64>, IComparable<Fixed64>, IEqua
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Fixed64 operator -(Fixed64 x)
     {
-        return x.m_rawValue == FixedMath.MIN_VALUE_L ? MAX_VALUE : new Fixed64(-x.m_rawValue);
+        return x.m_rawValue == FixedMath.MIN_VALUE_L ? new Fixed64(FixedMath.MAX_VALUE_L) : new Fixed64(-x.m_rawValue);
     }
 
     /// <summary>

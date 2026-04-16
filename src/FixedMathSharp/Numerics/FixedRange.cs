@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -8,6 +11,9 @@ namespace FixedMathSharp;
 /// Represents a range of values with fixed precision.
 /// </summary>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct FixedRange : IEquatable<FixedRange>
 {
     #region Static Readonly Fields
@@ -30,12 +36,18 @@ public partial struct FixedRange : IEquatable<FixedRange>
     /// Gets the minimum value of the range.
     /// </summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(0)]
+#endif
     public Fixed64 Min;
 
     /// <summary>
     /// Gets the maximum value of the range.
     /// </summary>
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(1)]
+#endif
     public Fixed64 Max;
 
     #endregion
@@ -70,6 +82,9 @@ public partial struct FixedRange : IEquatable<FixedRange>
     /// The length of the range, computed as Max - Min.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 Length
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -80,6 +95,9 @@ public partial struct FixedRange : IEquatable<FixedRange>
     /// The midpoint of the range.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 MidPoint
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

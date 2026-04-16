@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -17,17 +20,29 @@ namespace FixedMathSharp;
 /// - Supports more precise intersection tests than BoundingArea, making it ideal for detailed spatial queries.
 /// </remarks>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct BoundingBox : IBound, IEquatable<BoundingBox>
 {
     #region Nested Types
 
     [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackable]
+#endif
     public readonly partial struct BoundingBoxState
     {
         [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+        [MemoryPackInclude]
+#endif
         public readonly Vector3d Min;
 
         [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+        [MemoryPackInclude]
+#endif
         public readonly Vector3d Max;
 
         [JsonConstructor]
@@ -69,6 +84,9 @@ public partial struct BoundingBox : IBound, IEquatable<BoundingBox>
     }
 
     [JsonConstructor]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackConstructor]
+#endif
     public BoundingBox(BoundingBoxState state)
     {
         State = state;
@@ -83,18 +101,27 @@ public partial struct BoundingBox : IBound, IEquatable<BoundingBox>
     /// The minimum corner of the bounding box.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector3d Min { get; private set; }
 
     /// <summary>
     /// The maximum corner of the bounding box.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector3d Max { get; private set; }
 
     /// <summary>
     /// The center of the bounding box.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector3d Center
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -114,6 +141,9 @@ public partial struct BoundingBox : IBound, IEquatable<BoundingBox>
     /// The total size of the box (Width, Height, Depth). This is always twice the scope.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector3d Proportions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -134,6 +164,9 @@ public partial struct BoundingBox : IBound, IEquatable<BoundingBox>
     /// The range (half-size) of the bounding box in all directions. Always half of the total size.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector3d Scope
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -142,6 +175,9 @@ public partial struct BoundingBox : IBound, IEquatable<BoundingBox>
 
     /// <inheritdoc cref="_vertices" />
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector3d[] Vertices
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -149,6 +185,9 @@ public partial struct BoundingBox : IBound, IEquatable<BoundingBox>
     }
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackInclude]
+#endif
     public BoundingBoxState State
     {
         get => new(Min, Max);

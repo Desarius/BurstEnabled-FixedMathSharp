@@ -48,6 +48,19 @@
     <Optimize>true</Optimize>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <!--
+    Opt-out switch for MemoryPack integration.
+    Set DisableMemoryPack=true (e.g. `dotnet build -c Release /p:DisableMemoryPack=true`)
+    to strip [MemoryPackable]/[MemoryPackInclude]/etc. and drop the MemoryPack package.
+    Required for consumers building with Unity Burst AOT, where the auto-generated
+    MemoryPack cctor allocates a managed formatter instance (Burst error BC1021).
+  -->
+  <PropertyGroup>
+    <DisableMemoryPack Condition="'$(DisableMemoryPack)' == ''">false</DisableMemoryPack>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(DisableMemoryPack)' == 'true'">
+    <DefineConstants>$(DefineConstants);FIXEDMATHSHARP_DISABLE_MEMORYPACK</DefineConstants>
+  </PropertyGroup>
   <!-- NuGet Packaging Metadata -->
   <PropertyGroup>
     <PackageId>FixedMathSharp</PackageId>
@@ -70,6 +83,9 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <!-- Dependencies and Package References -->
+  <ItemGroup Condition="'$(DisableMemoryPack)' != 'true'">
+    <PackageReference Include="MemoryPack" Version="1.21.4" />
+  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <PackageReference Include="System.Text.Json" Version="10.0.5" />
   </ItemGroup>

@@ -1,3 +1,6 @@
+﻿#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+using MemoryPack;
+#endif
 using System;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
@@ -9,6 +12,9 @@ namespace FixedMathSharp;
 /// Quaternions are useful for representing rotations and can be used to perform smooth rotations and avoid gimbal lock.
 /// </summary>
 [Serializable]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+[MemoryPackable]
+#endif
 public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
 {
     #region Static Readonly Fields
@@ -28,15 +34,27 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     #region Fields and Constants
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(0)]
+#endif
     public Fixed64 x;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(1)]
+#endif
     public Fixed64 y;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(2)]
+#endif
     public Fixed64 z;
 
     [JsonInclude]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackOrder(3)]
+#endif
     public Fixed64 w;
 
     #endregion
@@ -62,6 +80,9 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     /// Normalized version of this quaternion.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public FixedQuaternion Normal
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -72,6 +93,9 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     /// Returns the Euler angles (in degrees) of this quaternion.
     /// </summary>
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Vector3d EulerAngles
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -81,6 +105,9 @@ public partial struct FixedQuaternion : IEquatable<FixedQuaternion>
     }
 
     [JsonIgnore]
+#if !FIXEDMATHSHARP_DISABLE_MEMORYPACK
+    [MemoryPackIgnore]
+#endif
     public Fixed64 this[int index]
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
